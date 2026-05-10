@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriLink - Pro App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --p: #10B981; --s: #F59E0B; --bg: #0F172A; --glass: rgba(30, 41, 59, 0.7); --t: #F8FAFC; --tm: #94A3B8; }
+        body { font-family: 'Inter', sans-serif; background: #020617; color: var(--t); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .phone { width: 375px; height: 812px; background: var(--bg); border: 12px solid #1E293B; border-radius: 50px; position: relative; overflow: hidden; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7); }
+        .screen { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: all 0.4s ease; transform: translateY(20px); }
+        .screen.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .glass { background: var(--glass); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; }
+        .nav-item.active { color: var(--p); transform: translateY(-4px); }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 0.5; } }
+    </style>
+</head>
+<body>
+<div class="phone">
+    <!-- Auth -->
+    <div id="screen-auth" class="screen active p-8 flex flex-col justify-center">
+        <div class="mb-12 text-center"><h1 class="text-4xl font-black tracking-[0.3em] text-[#10B981] mb-2">AGRILINK</h1><p class="text-slate-400 text-sm">Empowering every farmer.</p></div>
+        <div class="glass p-6">
+            <h2 class="text-2xl font-bold mb-6">Login</h2>
+            <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 mb-4 text-sm text-white outline-none">
+            <input type="password" placeholder="Password" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 mb-6 text-sm text-white outline-none">
+            <button onclick="login()" class="w-full bg-[#10B981] py-4 rounded-2xl font-bold text-white">Sign In</button>
+        </div>
+    </div>
+    <!-- Main -->
+    <div id="main-app" class="hidden h-full">
+        <div id="screen-home" class="screen">
+            <div class="px-6 pt-12 pb-4 flex justify-between items-center"><i data-lucide="menu"></i><h1 class="text-xl font-black tracking-[0.2em] text-[#10B981]">AGRILINK</h1><i data-lucide="bell"></i></div>
+            <div class="flex-1 overflow-y-auto px-6 pb-24 scroll-hide">
+                <h2 id="greet" class="text-3xl font-extrabold text-white mt-4">Namaste, Ramesh!</h2>
+                <div class="glass p-6 mt-6 cursor-pointer" onclick="navigate('profile')"><p class="text-[10px] font-black text-[#10B981]">FARMER ID</p><h3 id="cname" class="text-xl font-bold">Ramesh Patil</h3><p id="cloc" class="text-slate-400 text-sm">Pimpalgaon, Nashik</p></div>
+                <h3 class="text-xl font-bold mt-8 mb-4">Live Prices</h3>
+                <div id="price-list" class="space-y-4"></div>
+            </div>
+        </div>
+        <div id="screen-market" class="screen">
+            <div class="px-6 pt-12 pb-4"><h1 class="text-2xl font-bold text-white">Price Checker</h1></div>
+            <div class="flex-1 overflow-y-auto px-6 pb-24 scroll-hide">
+                <div id="bc" class="text-[10px] text-slate-500 font-bold mb-4 uppercase">INDIA</div>
+                <div id="picker-container"><input id="search-input" type="text" placeholder="Search..." oninput="renderPicker()" class="w-full bg-white/5 p-4 rounded-2xl mb-6 text-white outline-none"><div id="item-list" class="space-y-3"></div></div>
+                <div id="checker-result" class="hidden"><div class="glass p-6 mt-4"><h3 id="rcrop" class="text-2xl font-bold text-white">Crop</h3><p id="rloc" class="text-slate-400 text-sm mb-6">Location</p><div class="text-4xl font-black text-[#F59E0B] mb-8">₹2,850</div><button onclick="resetChecker()" class="w-full bg-[#10B981] py-4 rounded-2xl font-bold text-white">New Search</button></div></div>
+            </div>
+        </div>
+        <div id="screen-shop" class="screen"><div class="px-6 pt-12 pb-4"><h1 class="text-2xl font-bold text-white">Agri Shop</h1></div><div id="shop-list" class="px-6 space-y-4 flex-1 overflow-y-auto pb-24"></div></div>
+        <div id="screen-profile" class="screen">
+            <div class="px-6 pt-12 pb-4 flex justify-between items-center"><h1 class="text-xl font-bold text-white">Profile</h1><button onclick="navigate('edit-profile')" class="text-[#10B981] font-bold">EDIT</button></div>
+            <div class="px-6 flex-1"><div class="glass p-6 mt-4 text-center"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-[#10B981]"><h3 id="pname" class="text-2xl font-bold">Ramesh Patil</h3><p id="ploc" class="text-slate-400">Pimpalgaon, Nashik</p></div><button onclick="logout()" class="w-full mt-8 bg-red-500/10 text-red-500 font-bold py-4 rounded-2xl">Log Out</button></div>
+        </div>
+        <div id="screen-edit-profile" class="screen">
+            <div class="px-6 pt-12 pb-4 flex justify-between items-center"><button onclick="navigate('profile')"><i data-lucide="x"></i></button><h1 class="text-xl font-bold text-white">Edit Profile</h1><button onclick="saveProfile()" class="text-[#10B981] font-bold">SAVE</button></div>
+            <div class="px-6 space-y-4"><input id="en" type="text" class="w-full bg-white/5 p-4 rounded-xl text-white outline-none" placeholder="Name"><input id="el" type="text" class="w-full bg-white/5 p-4 rounded-xl text-white outline-none" placeholder="Location"></div>
+        </div>
+        <!-- Nav -->
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-[#0F172A]/95 border-t border-white/5 px-8 flex justify-between items-center">
+            <button onclick="navigate('home')" id="nav-home" class="nav-item active flex flex-col items-center"><i data-lucide="home"></i><span class="text-[9px] font-bold">Home</span></button>
+            <button onclick="navigate('market')" id="nav-market" class="nav-item flex flex-col items-center"><i data-lucide="search"></i><span class="text-[9px] font-bold">Market</span></button>
+            <button onclick="navigate('shop')" id="nav-shop" class="nav-item flex flex-col items-center"><i data-lucide="store"></i><span class="text-[9px] font-bold">Shop</span></button>
+            <button onclick="navigate('profile')" id="nav-profile" class="nav-item flex flex-col items-center"><i data-lucide="user"></i><span class="text-[9px] font-bold">Me</span></button>
+        </div>
+    </div>
+</div>
+<script>
+    const DATA = { 'State': ['Maharashtra', 'Uttar Pradesh', 'Gujarat'], 'District': { 'Maharashtra': ['Nashik', 'Pune'] }, 'Taluka': { 'Nashik': ['Pimpalgaon'] }, 'Crop': ['Onion', 'Tomato'] };
+    let step = 0; const steps = ['State', 'District', 'Taluka', 'Crop']; let sel = {};
+    function renderPicker() {
+        const list = document.getElementById('item-list'); const q = document.getElementById('search-input').value.toLowerCase();
+        let items = (step === 0) ? DATA['State'] : (step === 1) ? DATA['District'][sel['State']] || [] : (step === 2) ? DATA['Taluka'][sel['District']] || [] : DATA['Crop'];
+        list.innerHTML = items.filter(i => i.toLowerCase().includes(q)).map(i => `<div onclick="select('${i}')" class="glass p-5 flex justify-between cursor-pointer"><span>${i}</span><i data-lucide="chevron-right"></i></div>`).join('');
+        lucide.createIcons();
+    }
+    function select(v) {
+        sel[steps[step]] = v; step++; document.getElementById('search-input').value = ''; 
+        document.getElementById('bc').innerText = (Object.values(sel).join(' > ') || 'INDIA').toUpperCase();
+        if (step >= steps.length) { document.getElementById('picker-container').classList.add('hidden'); document.getElementById('checker-result').classList.remove('hidden'); document.getElementById('rcrop').innerText = sel['Crop']; document.getElementById('rloc').innerText = sel['Taluka'] + ', ' + sel['District']; } else renderPicker();
+    }
+    function resetChecker() { step = 0; sel = {}; document.getElementById('picker-container').classList.remove('hidden'); document.getElementById('checker-result').classList.add('hidden'); renderPicker(); }
+    function login() { document.getElementById('screen-auth').classList.remove('active'); document.getElementById('main-app').classList.remove('hidden'); document.getElementById('screen-home').classList.add('active'); init(); }
+    function logout() { document.getElementById('main-app').classList.add('hidden'); document.getElementById('screen-auth').classList.add('active'); }
+    function navigate(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); document.getElementById('screen-' + id).classList.add('active'); if(document.getElementById('nav-' + id)) document.getElementById('nav-' + id).classList.add('active'); lucide.createIcons(); }
+    function saveProfile() {
+        const n = document.getElementById('en').value, l = document.getElementById('el').value;
+        document.getElementById('greet').innerText = 'Namaste, ' + n.split(' ')[0] + '!';
+        document.getElementById('cname').innerText = n; document.getElementById('cloc').innerText = l;
+        document.getElementById('pname').innerText = n; document.getElementById('ploc').innerText = l;
+        navigate('profile');
+    }
+    function init() {
+        const prices = [{c:'Onion', p:2450}, {c:'Tomato', p:1800}, {c:'Wheat', p:2100}];
+        document.getElementById('price-list').innerHTML = prices.map(x => `<div class="glass p-5 flex justify-between"><div><h4 class="font-bold">${x.c}</h4><p class="text-xs text-slate-500">Live Rate</p></div><div class="text-right"><p class="text-lg font-black text-[#F59E0B]">₹${x.p}</p></div></div>`).join('');
+        const shop = [{n:'Urea', s:50}, {n:'NPK', s:30}, {n:'Seeds', s:100}];
+        document.getElementById('shop-list').innerHTML = shop.map(x => `<div class="glass p-5 flex justify-between"><div><h4 class="font-bold">${x.n}</h4><p class="text-xs text-slate-500">Stock: ${x.s}</p></div><button class="bg-[#10B981] px-4 py-2 rounded-xl text-xs font-bold">Order</button></div>`).join('');
+        document.getElementById('en').value = "Ramesh Patil"; document.getElementById('el').value = "Pimpalgaon, Nashik";
+        lucide.createIcons();
+    }
+    renderPicker(); lucide.createIcons();
+</script>
+</body>
+</html>
