@@ -1,93 +1,71 @@
-# 🌾 AgriLink
+# AgriLink 🌾
 
+A farmer-focused application concept designed to connect **farmers, agricultural markets, and agri-retailers** through a digital platform.
 
-link: https://pavanwadile77.github.io/Agri-Link/
+**Demo:** https://pavanwadile77.github.io/Agri-Link/
 
+## ✨ Features
 
+### 👨‍🌾 Digital Farmer Identity
+- Digital farmer profile/card
+- Farm and crop information
+- QR-based identity verification
 
-**AgriLink** is a premium, farmer-first mobile application designed to bridge the gap between rural agriculture and the modern supply chain. Built with **React Native** and **Expo**, it empowers farmers with real-time market intelligence, a digital identity, and direct access to agri-retailers.
+### 📈 Market Intelligence
+- Mandi/APMC price information
+- State, district, and taluka filtering
+- Crop and market search
+- Price trend visualization
 
----
+### 🛒 Agri-Shop Workflow
+- Farmer requirements
+- Retailer discovery
+- Requirement matching
+- Direct interaction / bidding concept
 
-## 🚀 Key Features
-
-### 👤 Digital Farmer Identity
-*   **Farmer Card**: A secure digital ID containing farm metrics, soil types, and current crop logs.
-*   **QR Verification**: Instant offline verification for government schemes and shop transactions.
-
-### 📈 Market Intelligence (Mandi Rates)
-*   **Real-time Prices**: Live APMC Mandi rates filtered by State, District, and Taluka.
-*   **Cascading Search**: High-speed search interface to find specific crops and markets across India.
-*   **Trend Visualization**: Sparkline charts and live indicators (Up/Down) for price volatility.
-
-### 🛒 Agri-Shop Ecosystem
-*   **Requirement Matching**: Retailers can view nearby farmer needs (seeds, fertilizers) in real-time.
-*   **Direct Bidding**: Seamless interaction between farmers and retailers for the best input prices.
-
-### 🎨 Premium UI/UX
-*   **Glassmorphism Theme**: A modern, sleek design with a dark-mode emerald and amber palette.
-*   **Interactive Prototype**: A built-in Single Page Application (SPA) for rapid visual demonstration.
-
----
+### 🎨 User Experience
+- Responsive interface
+- Modern visual design
+- Interactive prototype
 
 ## 🛠 Tech Stack
 
-*   **Framework**: React Native (Expo)
-*   **Navigation**: React Navigation (Native Stack & Bottom Tabs)
-*   **State Management**: Redux Toolkit
-*   **Icons**: Lucide React Native
-*   **Design**: Glassmorphism (Vanilla CSS / Tailwind)
+- React Native
+- Expo
+- React Navigation
+- Redux Toolkit
+- React Native SVG
+- Lucide React Native
+- Recharts / Victory Native
 
----
+## ▶️ Run Locally
 
-## 📂 Project Structure
-
-```text
-├── src
-│   ├── components      # Reusable UI elements (GlassCard, FarmerCard)
-│   ├── screens         # App screens (Dashboard, PriceChecker, Auth)
-│   ├── store           # Redux global state management
-│   └── theme           # Design tokens and color palette
-├── App.js              # Entry point & Navigation setup
-├── prototype.html      # Fully interactive web-based demo
-└── package.json        # Dependencies and scripts
+```bash
+git clone https://github.com/PavanWadile77/Agri-Link.git
+cd Agri-Link
+npm install
+npx expo start
 ```
 
----
+Useful commands:
 
-## 🏃‍♂️ Getting Started
-
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/PavanWadile77/Agri-Link.git
-    cd Agri-Link
-    ```
-
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-
-3.  **Start the development server**:
-    ```bash
-    npx expo start
-    ```
-
-4.  **Run the Prototype**:
-    Simply open `prototype.html` in any modern browser to view the interactive SPA.
-
----
+```bash
+npm run android
+npm run ios
+npm run web
+```
 
 ## 🗺 Roadmap
 
-- [ ] **Phase 2**: Integration with Firebase for real-time Auth & Database.
-- [ ] **Phase 3**: AI-based crop disease detection using Gemini API.
-- [ ] **Phase 4**: Secure UPI payment gateway for shop orders.
+- Firebase authentication and real-time database integration
+- AI-assisted crop disease support
+- Secure digital payments
+- Expanded market-data integrations
 
----
+## Repository
 
-## 📄 License
-Confidential - All Rights Reserved.
+https://github.com/PavanWadile77/Agri-Link
 
----
-*Built with ❤️ by Antigravity for Pavan Wadile.*
+## Author
+
+**Pavan Wadile**
