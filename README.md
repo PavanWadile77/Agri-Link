@@ -1,5 +1,14 @@
 # AgriLink 🌾
 
+<div align="center">
+
+**Mobile Application • AgriTech**
+
+<img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+
+</div>
+
+
 A farmer-focused digital platform concept connecting **farmers, agricultural markets, and agri-retailers**.
 
 🌐 **Demo:** https://pavanwadile77.github.io/Agri-Link/
@@ -35,3 +44,17 @@ npx expo start
 
 ## 👨‍💻 Author
 **Pavan Wadile**
+
+## 🔧 Engineering Focus
+
+Farmer identity, farm data, market discovery, price information and retailer matching.
+
+---
+
+<div align="center">
+
+**Pavan Wadile · B.Tech Information Technology**
+
+[GitHub](https://github.com/PavanWadile77)
+
+</div>
