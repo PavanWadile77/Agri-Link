@@ -2,6 +2,13 @@
 
 <div align="center">
 
+<img src="https://komarev.com/ghpvc/?username=PavanWadile77&label=PROFILE+VIEWS&color=2563EB&style=for-the-badge" alt="Profile views" />
+
+</div>
+
+
+<div align="center">
+
 **Mobile Application • AgriTech**
 
 <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
